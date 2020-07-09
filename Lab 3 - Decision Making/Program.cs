@@ -6,55 +6,76 @@ namespace Lab_3___Decision_Making
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome! What is your name? ");
+            Console.WriteLine("Welcome to the Decision Maker!\n");
+
+            GetUserInput("Whats your name?");
             string name = Console.ReadLine();
 
-            string userContinue = "y";
-
-            while (userContinue == "y")
+            do
             {
+                GetUserInput($"{name}, please enter a number from 1 - 100:");
+                int userNum = int.Parse(Console.ReadLine());
 
-                Console.WriteLine("Pick a positive number between 1 and 100. Enter number: ");
-                int num = int.Parse(Console.ReadLine());
+                IsOddOrEven(userNum);
+            } while (Continue());
+        }
+    
 
-                if ((num >= 0) && (num <= 100))
+        static string GetUserInput(string userResponse)
+        {
+            //created a seperate method to get any input. 
+            Console.WriteLine(userResponse);
+            return userResponse;
+        }
+
+        static void IsOddOrEven(double userNumber)
+        {
+
+            while (userNumber >= 1 && userNumber <= 100)
+            {
+                if (userNumber % 2 != 0)
                 {
-                    Console.WriteLine($"Awesome {name}, thanks for picking a positive number ");
+                    Console.WriteLine("Odd");
+                }
+                else if (userNumber % 2 == 0)
+                {
+                    Console.WriteLine("Even");
 
-                    if (num % 2 != 0)
+                    if (userNumber > 1 && userNumber < 25)
                     {
-                        Console.WriteLine($"{name}, you have picked an odd number");
-                    }
-                    else if ((num % 2 == 0) && (num >= 2) && (num <= 25))
-                    {
-                        Console.WriteLine($"{name}, you have picked an even number that is less than or equal to 25");
-                    }
-                    else if ((num % 2 == 0) && (num >= 26) && (num <= 60))
-                    {
-                        Console.WriteLine($"{name}, you have picked an even number that is less than or equal to 60");
-                    }
-                    else if ((num % 2 == 0) && (num >= 60))
-                    {
-                        Console.WriteLine($"{name}, you have picked an even number that is great to or equal to 60");
-                    }
-                    else if ((num % 2 != 0) && (num <= 60))
-                    {
-                        Console.WriteLine($"{name}, you have picked an odd number that is less than or equal to 60");
+                        Console.WriteLine($"{userNumber} is Even");
                     }
                 }
                 else
                 {
-                    Console.WriteLine($"{name}, you have entered something invalid \nPlease enter another positive number: ");
+                    Console.WriteLine("The number you entered is not valid");
                 }
-                userContinue = "";
-                while ((userContinue != "y") && (userContinue != "n"))
-                {
-                    Console.WriteLine($"\n{name}, would you like to pick another positive number? Enter y/n: ");
-                    userContinue = Console.ReadLine();
-                }
+                break;
             }
-            Console.WriteLine($"Thank you {name} for playing, have a great day!");
+
+        }
+        static bool Continue()
+        {
+            GetUserInput("Would you like to enter another number? Please enter y/n: ");
+            string anotherNum = Console.ReadLine().ToLower();
+
+            if (anotherNum == "yes" || anotherNum == "y")
+            {
+                Console.WriteLine("Yay! \n");
+                return true;
+            }
+            else if (anotherNum == "no" || anotherNum == "n")
+            {
+                Console.WriteLine("Thanks for your input, have a nice day!");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Error! Please answer with a either y/n: ");
+                return Continue();
+            }
 
         }
     }
+    
 }
